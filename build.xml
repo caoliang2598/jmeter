@@ -197,6 +197,7 @@
   <property name="src.dir" value="src"/>
   <property name="src.core" value="src/core"/>
   <property name="src.http" value="src/protocol/http"/>
+  <property name="src.hermes" value="src/protocol/hermes"/>
   <property name="src.ftp" value="src/protocol/ftp"/>
   <property name="src.test" value="test/src"/>
   <property name="src.jdbc" value="src/protocol/jdbc"/>
@@ -228,6 +229,7 @@
     <pathelement location="${src.components}"/>
     <pathelement location="${src.functions}"/>
     <pathelement location="${src.http}"/>
+    <pathelement location="${src.hermes}"/>
     <pathelement location="${src.ftp}"/>
     <pathelement location="${src.jdbc}"/>
     <pathelement location="${src.java}"/>
@@ -249,6 +251,7 @@
   <property name="build.dir" value="build"/>
   <property name="build.core" value="build/core"/>
   <property name="build.http" value="build/protocol/http"/>
+  <property name="build.hermes" value="build/protocol/hermes"/>
   <property name="build.ftp" value="build/protocol/ftp"/>
   <property name="build.jdbc" value="build/protocol/jdbc"/>
   <property name="build.java" value="build/protocol/java"/>
@@ -288,7 +291,7 @@
   -->
   <property name="eclipse.anakia" value="."/>
 
-  <!-- Where the build result .jars will be placed -->
+  <!-- Where the build result .jfars will be placed -->
   <property name="dest.jar" value="lib/ext"/>
   <property name="dest.jar.jmeter" value="bin"/>
 
@@ -405,6 +408,7 @@
     <include name="${lib.dir}/${xmlpull.jar}"/>
     <include name="${lib.dir}/${xpp3.jar}"/>
     <include name="${lib.dir}/${xstream.jar}"/>
+    <include name="${lib.dir}/hermes-java-tools.jar"/>
   </patternset>
 
   <!--
@@ -478,6 +482,8 @@
     <pathelement location="${lib.dir}/${xmlpull.jar}"/>
     <pathelement location="${lib.dir}/${xpp3.jar}"/>
     <pathelement location="${lib.dir}/${xstream.jar}"/>
+    <pathelement location="${lib.dir}/hermes-java-tools.jar"/>
+
     <!-- Generated jars -->
     <fileset dir="${lib.dir}" includes="jorphan.jar"/>
     <!-- API-only jars-->
@@ -618,6 +624,21 @@
     </javac>
   </target>
 
+  <target name="compile-hermes" depends="compile-jorphan,compile-core,compile-components" description="Compile components specific to hermes sampling.">
+    <mkdir dir="${build.hermes}"/>
+    <!-- Directory needs to exist, or jar will fail -->
+    <javac srcdir="${src.hermes}" destdir="${build.hermes}" source="${src.java.version}" optimize="${optimize}" debug="on" target="${target.java.version}"
+           includeAntRuntime="${includeAntRuntime}" deprecation="${deprecation}" encoding="${encoding}">
+      <include name="**/*.java"/>
+      <classpath>
+        <pathelement location="${build.jorphan}"/>
+        <pathelement location="${build.core}"/>
+        <pathelement location="${build.components}"/>
+        <path refid="classpath"/>
+      </classpath>
+    </javac>
+  </target>
+	
   <target name="compile-tests" description="Compile test components only">
     <mkdir dir="${build.test}"/>
     <javac srcdir="${src.test}" destdir="${build.test}" source="${src.java.version}" optimize="${optimize}" debug="on" target="${target.java.version}"
@@ -1018,6 +1039,16 @@ run JMeter unless all the JMeter jars are added.
         fullpath="META-INF/LICENSE" />
       <fileset dir="${build.http}" includes="**/*.class"/>
       <fileset dir="${src.http}" includes="**/*.properties" />
+    </jar>
+  	
+    <!-- hermes -->
+    <jar jarfile="${dest.jar}/ApacheJMeter_hermes.jar" manifest="${build.dir}/MANIFEST_BIN.MF">
+      <zipfileset file="${resources.meta-inf}/default.notice"
+        fullpath="META-INF/NOTICE" />
+      <zipfileset file="${resources.meta-inf}/default.license"
+        fullpath="META-INF/LICENSE" />
+      <fileset dir="${build.hermes}" includes="**/*.class"/>
+      <fileset dir="${src.hermes}" includes="**/*.properties" />
     </jar>
 
     <!-- ftp -->
@@ -2947,6 +2978,7 @@ run JMeter unless all the JMeter jars are added.
         <process_jarfile jarname="xmlpull"/>
         <process_jarfile jarname="xpp3"/>
         <process_jarfile jarname="xstream"/>
+        <process_jarfile jarname="hermes-java-tools"/>
     </target>
 
     <target name="_process_doc_jars">

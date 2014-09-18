@@ -40,3 +40,15 @@ Thumbs.db
 
 ./bin/*.jar
 ./build/*
+
+build/reports/META-INF/javamail.providers
+
+*.license
+
+*.notice
+
+*.MF
+
+.project
+
+.classpath
