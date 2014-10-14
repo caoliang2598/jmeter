@@ -189,6 +189,38 @@ public class SampleSaveConfiguration implements Cloneable, Serializable {
      **************************************************************************/
     private static final String SAVE_TIME_PROP = "jmeter.save.saveservice.time"; // $NON_NLS-1$
 
+  /***************************************************************************
+   * The name of the property indicating whether the time should be saved.
+   **************************************************************************/
+  private static final String SAVE_USER_NAME = "jmeter.save.saveservice.username"; // $NON_NLS-1$
+
+  /***************************************************************************
+   * The name of the property indicating whether the time should be saved.
+   **************************************************************************/
+  private static final String SAVE_USER_ID = "jmeter.save.saveservice.userid"; // $NON_NLS-1$
+
+  /***************************************************************************
+   * The name of the property indicating whether the time should be saved.
+   **************************************************************************/
+  private static final String SAVE_COUNTRY = "jmeter.save.saveservice.country"; // $NON_NLS-1$
+
+  /***************************************************************************
+   * The name of the property indicating whether the time should be saved.
+   **************************************************************************/
+  private static final String SAVE_CATALOG = "jmeter.save.saveservice.catalog"; // $NON_NLS-1$
+
+
+  /***************************************************************************
+   * The name of the property indicating whether the time should be saved.
+   **************************************************************************/
+  private static final String SAVE_SITE = "jmeter.save.saveservice.site"; // $NON_NLS-1$
+
+  /***************************************************************************
+   * The name of the property indicating whether the time should be saved.
+   **************************************************************************/
+  private static final String SAVE_URI = "jmeter.save.saveservice.uri"; // $NON_NLS-1$
+
+
     /***************************************************************************
      * The name of the property giving the format of the time stamp
      **************************************************************************/
@@ -283,6 +315,13 @@ public class SampleSaveConfiguration implements Cloneable, Serializable {
 
     private static final DateFormat _formatter;
 
+    private static final boolean _username;
+    private static final boolean _userid;
+    private static final boolean _country;
+    private static final boolean _catalog;
+    private static final boolean _site;
+    private static final boolean _uri;
+
     /**
      * The string used to separate fields when stored to disk, for example, the
      * comma for CSV files.
@@ -306,6 +345,12 @@ public class SampleSaveConfiguration implements Cloneable, Serializable {
         _responseHeaders = TRUE.equalsIgnoreCase(props.getProperty(RESPONSEHEADERS_PROP, FALSE));
         _requestHeaders  = TRUE.equalsIgnoreCase(props.getProperty(REQUESTHEADERS_PROP, FALSE));
         _encoding        = TRUE.equalsIgnoreCase(props.getProperty(ENCODING_PROP, FALSE));
+        _username        = TRUE.equalsIgnoreCase(props.getProperty(SAVE_USER_NAME, FALSE));
+        _userid        = TRUE.equalsIgnoreCase(props.getProperty(SAVE_USER_ID, FALSE));
+        _country        = TRUE.equalsIgnoreCase(props.getProperty(SAVE_COUNTRY, FALSE));
+        _catalog        = TRUE.equalsIgnoreCase(props.getProperty(SAVE_CATALOG, FALSE));
+        _site        = TRUE.equalsIgnoreCase(props.getProperty(SAVE_SITE, FALSE));
+        _uri        = TRUE.equalsIgnoreCase(props.getProperty(SAVE_URI, FALSE));
 
         String dlm = props.getProperty(DEFAULT_DELIMITER_PROP, DEFAULT_DELIMITER);
         if (dlm.equals("\\t")) {// Make it easier to enter a tab (can use \<tab> but that is awkward)
@@ -834,4 +879,28 @@ public class SampleSaveConfiguration implements Cloneable, Serializable {
     public void setIdleTime(boolean save) {
         idleTime = save;
     }
+
+  public static boolean is_username() {
+    return _username;
+  }
+
+  public static boolean is_userid() {
+    return _userid;
+  }
+
+  public static boolean is_catalog() {
+    return _catalog;
+  }
+
+  public static boolean is_uri() {
+    return _uri;
+  }
+
+  public static boolean is_country() {
+    return _country;
+  }
+
+  public static boolean is_site() {
+    return _site;
+  }
 }

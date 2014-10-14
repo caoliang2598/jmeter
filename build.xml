@@ -635,6 +635,7 @@
         <pathelement location="${build.jorphan}"/>
         <pathelement location="${build.core}"/>
         <pathelement location="${build.components}"/>
+        <pathelement location="${build.http}"/>
         <path refid="classpath"/>
       </classpath>
     </javac>

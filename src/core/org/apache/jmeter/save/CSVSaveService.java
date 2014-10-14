@@ -942,6 +942,20 @@ public final class CSVSaveService {
         if (saveConfig.saveIdleTime()) {
             text.append(event.getResult().getIdleTime());
         }
+        if (saveConfig.is_catalog()) {
+            text.append(event.getResult().getCatalog());
+        }
+        if (saveConfig.is_country()) {
+            text.append(event.getResult().getCountry());
+        }if (saveConfig.is_site()) {
+            text.append(event.getResult().getSite());
+        }if (saveConfig.is_uri()) {
+            text.append(event.getResult().getUri());
+        }if (saveConfig.is_userid()) {
+        text.append(event.getResult().getUserId());
+      }if (saveConfig.is_username()) {
+        text.append(event.getResult().getUserName());
+      }
 
         for (int i = 0; i < SampleEvent.getVarCount(); i++) {
             text.append(event.getVarValue(i));

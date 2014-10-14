@@ -129,7 +129,16 @@ public class SampleResult implements Serializable {
     /** Filename used by ResultSaver */
     private String resultFileName = "";
 
-    /** The data used by the sampler */
+    private String userName="";
+    private String userId="";
+    private String country="";
+    private String catalog="";
+    private String uri="";
+    private String employee="";
+    private String site="";
+
+
+  /** The data used by the sampler */
     private String samplerData;
 
     private String threadName = ""; // Never return null
@@ -1349,4 +1358,52 @@ public class SampleResult implements Serializable {
     public void cleanAfterSample() {
         this.responseDataAsString = null;
     }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public String getUserId() {
+    return userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
+
+  public String getCatalog() {
+    return catalog;
+  }
+
+  public void setCatalog(String catalog) {
+    this.catalog = catalog;
+  }
+
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
+  public String getUri() {
+    return uri;
+  }
+
+  public void setUri(String uri) {
+    this.uri = uri;
+  }
+
+  public String getSite() {
+    return site;
+  }
+
+  public void setSite(String site) {
+    this.site = site;
+  }
 }
